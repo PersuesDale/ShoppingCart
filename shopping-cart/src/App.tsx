@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import LandingPage from './Pages/LandingPage'
 import './App.css'
-import LandingNav from './Components/Navbar/LandingNav'
+import Navbar from './Components/Navbar/Navbar'
 
 function App() {
   return (
@@ -10,7 +10,7 @@ function App() {
         <Routes>
 
           {/* landing page/products page */}
-          <Route path='/' element={[<LandingNav/>, <LandingPage />]} />
+          <Route path='/' element={[<Navbar/>, <LandingPage />]} />
 
         </Routes>
       </BrowserRouter>
