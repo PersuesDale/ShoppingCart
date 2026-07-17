@@ -9,7 +9,6 @@ function App() {
       <BrowserRouter>
         <Routes>
 
-          {/* landing page/products page */}
           <Route path='/' element={[<Navbar/>, <LandingPage />]} />
 
         </Routes>

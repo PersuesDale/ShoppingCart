@@ -1,5 +1,63 @@
-export default function ProductCard() {
+type ProductProps = {
+    product: {
+        id: number;
+        title: string;
+        price: number;
+        rating: number;
+        thumbnail: string;
+        category: string;
 
+    };
+};
+
+export default function ProductCard({ product }: ProductProps) {
+
+    return (
+
+        <div className="bg-white rounded-xl shadow-lg  hover:shadow-2xl transition-all duration-300" >
+
+            <div className="w-full h-auto overflow-hidden" >
+                <img
+                    src={product.thumbnail}
+                    alt="Sample Product"
+                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                />
+            </div>
+
+            <div className="p-4 flex flex-col gap-2" >
+
+                <h2 className="text-lg h-[56px] font-semibold line-clamp-2">
+                    {product.title}
+                </h2>
+
+                <p className="text-sm text-gray-500">
+                    {product.category}
+                </p>
+
+                <div className="flex items-center justify-between">
+
+                    <span className="text-xl font-bold text-black">
+                        {product.price}
+                    </span>
+
+                    <span className="text-yellow-500 font-medium">
+                        ⭐ {product.rating}
+                    </span>
+
+                </div>
+
+                <button
+                    className="mt-3 bg-black text-white py-2 rounded-lg 
+                            hover:bg-gray-800 transition-colors duration-200"
+                >
+                    Add to Cart
+                </button>
+
+            </div>
+
+        </div>
+    )
     
-
 }
+
+   
