@@ -1,6 +1,6 @@
-import icon from "../../assets/Logo/NOZAMA.svg"
-import search from "../../assets/Icon/search.svg"
-import shoppingCart from "../../assets/Icon/cart.svg"
+import icon from "../assets/Logo/NOZAMA.svg"
+import search from "../assets/Icon/search.svg"
+import shoppingCart from "../assets/Icon/cart.svg"
 import { useNavigate, Link } from "react-router-dom"
 import { useState } from "react"
 
