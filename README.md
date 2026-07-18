@@ -1,36 +1,85 @@
 # Shopping Cart Application
 
-A responsive shopping cart build with React and TypeScript. The application fetchs product data from a public API and allows users to search, filter, sort, manage quantities and complete a checkout flow.
+A responsive shopping cart application built with React and TypeScript. The application fetches product data from a public API and allows users to search, filter, sort, manage cart quantities, and complete a checkout flow.
 
 ## Technologies Used
 
 - React 19
 - TypeScript
 - Vite
-- Tailwind CSS or Bootstrap
+- Tailwind CSS
 - pnpm
 - Zustand
 - TanStack Query
 - Zod
-- localStorage
+- React Router
+- Browser Local Storage
 
 ## Setup Instructions
 
 Clone the repository:
 
 ```bash
-git clone 
+git clone https://github.com/PersuesDale/ShoppingCart.git
+```
+
+Navigate into the project:
+
+```bash
+cd ShoppingCart
+```
+
+Install dependencies:
+
+```bash
+pnpm install
+```
+
+## Commands to Run the Application
+
+Start the development server:
+
+```bash
+pnpm dev
+```
+
+Open the local URL displayed by Vite in your browser.
+
+To create a production build:
+
+```bash
+pnpm build
+```
+
+To preview the production build:
+
+```bash
+pnpm preview
+```
+
+## API Used
+
+Product information is fetched from the DummyJSON Products API.
+
+The API provides product information including:
+
+- Product title
+- Product images
+- Description
+- Category
+- Price
+- Rating
 
 ## Features
 
 ### Product Listing
 
-- Fetchs products from a public API
+- Fetches products from a public API
 - Displays products in a responsive grid
-- Product shows image, title,category,price,rating
-- Add products to cart
+- Displays product image, title, category, price, and rating
+- Add products to the cart
 - Skeleton loading
-- API Error handling
+- API error handling
 - Empty result handling
 
 ### Search and Filtering
@@ -52,13 +101,13 @@ git clone
 
 ### Cart Management
 
-- Add products to cart
+- Add products to the cart
 - Remove products from the cart
 - Increase product quantity
 - Decrease product quantity
-- Clear the cart
-- Quantity per product limited between 1 to 5
-- Products in cart count displayed in navbar
+- Clear the entire cart
+- Quantity per product limited from 1 to 5
+- Cart item count displayed in the navbar
 - Cart persists after page refresh using Zustand's persist middleware with localStorage
 
 ### Cart Calculations
@@ -75,30 +124,27 @@ git clone
 - Form validation using Zod
 - Inline validation error messages
 - Order summary
-- Shipping information
-- Cart items
+- Shipping information review
+- Cart items review
 - Payment summary
 - Order confirmation
 - Cart clears after successful order
 
 ### Additional Features
-- Product Sorting
+
+- Product sorting
 - Skeleton loading
 - Dark mode with saved theme preference
 
+## Known Limitations
 
+- Product data is provided by a public demo API.
+- Orders are not sent to a real backend.
+- Real payment processing is not implemented.
+- Checkout and order placement are simulated on the frontend.
+- User authentication is not implemented.
+- Cart data is stored locally in the user's browser.
 
-## API Used
+## Author
 
-Product information fetched from the DummyJSON Products API.
-
-The API provides product information incluing:
-
-- Product title
-- Product image
-- Description
-- Category
-- Price
-- Rating
-- Product images
-
+Dale Rolince
