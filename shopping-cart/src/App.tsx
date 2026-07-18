@@ -1,16 +1,26 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import LandingPage from './Pages/LandingPage'
 import './App.css'
-import LandingNav from './Components/Navbar/LandingNav'
+import Navbar from './Components/Navbar/Navbar'
+import Cart from './Components/Cart'
+import NavMin from './Components/Navbar/NavMin'
+import ShippingDeets from './Components/ShippingDeets'
+import Footer from './Components/Footer/Footer'
 
 function App() {
   return (
     <>
       <BrowserRouter>
         <Routes>
+          
+          {/* homepage */}
+          <Route path='/' element={[<Navbar />, <LandingPage />, <Footer />]} />
 
-          {/* landing page/products page */}
-          <Route path='/' element={[<LandingNav/>, <LandingPage />]} />
+          {/* view cart */}
+          <Route path='/Cart' element={[<Navbar />, <Cart />, <Footer />]} />
+
+          {/* shipping info */}
+          <Route path='/ShippingDetails' element={[<NavMin />, <ShippingDeets />]} />
 
         </Routes>
       </BrowserRouter>

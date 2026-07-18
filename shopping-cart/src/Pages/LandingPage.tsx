@@ -1,10 +1,10 @@
+import ProductGrid from "../Components/Product/ProductGrid";
 
-const LandingPage = () => {
+export default function LandingPage() {
     return (
         <div>
-            <p>hello world</p>
+            <ProductGrid />
         </div>
     )
 }
 
-export default LandingPage
