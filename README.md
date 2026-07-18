@@ -19,7 +19,42 @@ A responsive shopping cart build with React and TypeScript. The application fetc
 Clone the repository:
 
 ```bash
-git clone 
+git clone https://github.com/PersuesDale/ShoppingCart.git
+```
+Navigate into the project:
+
+```bash
+cd ShoppingCart
+```
+Install dependencies:
+
+```bash
+pnpm install
+```
+
+## Commands to run the application
+
+Start the development server:
+
+```bash
+pnpm dev
+```
+
+Open the local URL displayed by Vite in your browser.
+
+## API Used
+
+Product information fetched from the DummyJSON Products API.
+
+The API provides product information incluing:
+
+- Product title
+- Product image
+- Description
+- Category
+- Price
+- Rating
+- Product images
 
 ## Features
 
@@ -86,19 +121,15 @@ git clone
 - Skeleton loading
 - Dark mode with saved theme preference
 
+## Known Limitations
 
+- Product data provided by public demo API.
+- Orders are not sent to a real backend.
+- No real payment processing implemented.
+- Checkout and order placement simulated on the frontend.
+- User authentication is not implemented.
+- Cart data is stored locally in the user's browser.
 
-## API Used
+## Author
 
-Product information fetched from the DummyJSON Products API.
-
-The API provides product information incluing:
-
-- Product title
-- Product image
-- Description
-- Category
-- Price
-- Rating
-- Product images
-
+Dale Rolince
