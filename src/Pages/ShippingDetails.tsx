@@ -1,17 +1,20 @@
+import { useNavigate } from "react-router-dom";
 import { ShippingSchema, type Shipping } from "../Schema/ShippingSchema";
 import { useState, type SubmitEventHandler } from "react";
 
-const ShippingDeets = () => {
+const ShippingDetails = () => {
+
+    const navigate = useNavigate();
 
     const [formData, setFormData] = useState<Shipping>({
 
         fullName: "",
         email: "",
+        phNo: "",
         address: "",
         city: "",
-        pinCode: "",
-        state: "",
-        country: "",
+        postalCode: "",
+        
 
     })
 
@@ -41,11 +44,11 @@ const ShippingDeets = () => {
             setErrors({
                 fullName: fieldErrors.fullName?.[0],
                 email: fieldErrors.email?.[0],
+                phNo: fieldErrors.phNo?.[0],
                 address: fieldErrors.address?.[0],
                 city: fieldErrors.city?.[0],
-                pinCode: fieldErrors.pinCode?.[0],
-                state: fieldErrors.state?.[0],
-                country: fieldErrors.country?.[0],
+                postalCode: fieldErrors.postalCode?.[0],
+                
             });
 
             return;
@@ -53,13 +56,18 @@ const ShippingDeets = () => {
 
         setErrors({});
 
-        console.log(result.data);
+        navigate("/OrderSummary", {
+            state: {
+                shipping: result.data,
+            },
+        });
+
     };
 
     return (
-        <section className="min-h-screen bg-gray-100 p-6">
+        <section className="min-h-screen bg-gray-100 dark:bg-gray-950 dark:text-white p-6">
 
-            <div className="max-w-2xl mx-auto bg-white rounded-lg shadow p-6">
+            <div className="max-w-2xl mx-auto bg-white dark:bg-gray-900 rounded-lg shadow p-6">
 
                 <h1 className="text-2xl font-semibold mb-6">
                     Shipping Details
@@ -67,7 +75,6 @@ const ShippingDeets = () => {
 
                 <form onSubmit={handleSubmit} className="flex flex-col gap-5">
 
-                    {/* Name */}
                     <div className="flex flex-col gap-2">
                         <label
                             htmlFor="fullName"
@@ -93,8 +100,6 @@ const ShippingDeets = () => {
 
                     </div>
 
-
-                    {/* Email */}
                     <div className="flex flex-col gap-2">
                         <label
                             htmlFor="email"
@@ -119,10 +124,34 @@ const ShippingDeets = () => {
                         )}
 
                     </div>
-
-
-                    {/* Address */}
+                    
                     <div className="flex flex-col gap-2">
+                        <label
+                            htmlFor="phNo"
+                            className="font-medium"
+                        >
+                            Phone Number
+                        </label>
+
+                        <input
+                            name="phNo"
+                            value={formData.phNo}
+                            onChange={handleChange}
+                            type="text"
+                            placeholder="Enter your Phone Number"
+                            className="border rounded-md p-3 outline-none focus:ring-2 focus:ring-black"
+                        />
+
+                        {errors.phNo && (
+                            <p className="text-red-600 text-sm">
+                                {errors.phNo}
+                            </p>
+                        )}
+
+                    </div>
+
+                    <div className="flex flex-col gap-2">
+
                         <label
                             htmlFor="address"
                             className="font-medium"
@@ -147,11 +176,10 @@ const ShippingDeets = () => {
 
                     </div>
 
-
-                    {/* City and pin code */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
 
                         <div className="flex flex-col gap-2">
+
                             <label
                                 htmlFor="city"
                                 className="font-medium"
@@ -176,27 +204,26 @@ const ShippingDeets = () => {
 
                         </div>
 
-
                         <div className="flex flex-col gap-2">
                             <label
-                                htmlFor="pinCode"
+                                htmlFor="postalCode"
                                 className="font-medium"
                             >
                                 Pin Code
                             </label>
 
                             <input
-                                name="pinCode"
-                                value={formData.pinCode}
+                                name="postalCode"
+                                value={formData.postalCode}
                                 onChange={handleChange}
                                 type="text"
                                 placeholder="Pin Code"
                                 className="border rounded-md p-3 outline-none focus:ring-2 focus:ring-black"
                             />
 
-                            {errors.pinCode && (
+                            {errors.postalCode && (
                                 <p className="text-red-600 text-sm">
-                                    {errors.pinCode}
+                                    {errors.postalCode}
                                 </p>
                             )}
 
@@ -204,69 +231,12 @@ const ShippingDeets = () => {
 
                     </div>
 
-                    {/* State and country */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-
-                        <div className="flex flex-col gap-2">
-                            <label
-                                htmlFor="state"
-                                className="font-medium"
-                            >
-                                State
-                            </label>
-
-                            <input
-                                name="state"
-                                value={formData.state}
-                                onChange={handleChange}
-                                type="text"
-                                placeholder="State"
-                                className="border rounded-md p-3 outline-none focus:ring-2 focus:ring-black"
-                            />
-
-                            {errors.state && (
-                                <p className="text-red-600 text-sm">
-                                    {errors.state}
-                                </p>
-                            )}
-
-                        </div>
-
-
-                        <div className="flex flex-col gap-2">
-                            <label
-                                htmlFor="country"
-                                className="font-medium"
-                            >
-                                Country
-                            </label>
-
-                            <input
-                                name="country"
-                                value={formData.country}
-                                onChange={handleChange}
-                                type="text"
-                                placeholder="Country"
-                                className="border rounded-md p-3 outline-none focus:ring-2 focus:ring-black"
-                            />
-
-                            {errors.country && (
-                                <p className="text-red-600 text-sm">
-                                    {errors.country}
-                                </p>
-                            )}
-
-                        </div>
-
-                    </div>
-
-
-                    {/* Back and next buttons */}
                     <div className="flex justify-between mt-4">
 
                         <button
                             type="button"
-                            className="px-5 py-2 border border-black rounded-md hover:bg-gray-100 transition-colors"
+                            className="px-5 py-2 border border-black rounded-md hover:bg-gray-100 hover:text-black transition-colors"
+                            onClick={() => navigate("/cart")}
                         >
                             Back
                         </button>
@@ -288,4 +258,4 @@ const ShippingDeets = () => {
     );
 };
 
-export default ShippingDeets;
+export default ShippingDetails;
