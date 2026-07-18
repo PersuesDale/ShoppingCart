@@ -1,4 +1,4 @@
-import ProductGrid from "../Components/ProductGrid";
+import ProductGrid from "../Components/Product/ProductGrid";
 
 export default function LandingPage() {
     return (

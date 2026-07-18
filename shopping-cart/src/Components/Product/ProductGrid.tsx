@@ -1,8 +1,8 @@
 import ProductCard from "./ProductCard";
 import { useQuery } from "@tanstack/react-query";
-import { Products } from "../api/products";
-import SearchBar from "./SearchBar";
-import useProductFilters from "../Hooks/useProductFilters";
+import { Products } from "../../api/products";
+import SearchBar from "../SearchBar";
+import useProductFilters from "../../Hooks/useProductFilters";
 import { useState } from "react";
 
 const ProductGrid = () => {
@@ -56,9 +56,9 @@ const ProductGrid = () => {
                         <button onClick={() => setOpen(!open)}>
 
                             <div className="flex flex-col items-center ms-2">
-                                <span className={`h-[3px] w-7 bg-[#4a5565] transition-all mb-1 ${open ? "rotate-45 translate-y-2" : ""}`} />
-                                <span className={`h-[3px] w-5 bg-[#4a5565] transition-all mb-1 ${open ? "opacity-0" : ""}`} />
-                                <span className={`h-[3px] w-3 bg-[#4a5565] transition-all mb-1 ${open ? "w-7 mt-0.5 -rotate-45 -translate-y-2" : ""}`} />
+                                <span className={`h-0.5 w-6 bg-[#4a5565] transition-all mb-1 ${open ? "rotate-45 translate-y-2" : ""}`} />
+                                <span className={`h-[2px] w-4 bg-[#4a5565] transition-all mb-1 ${open ? "opacity-0" : ""}`} />
+                                <span className={`h-[2px] w-2 bg-[#4a5565] transition-all mb-1 ${open ? "w-6 mt-1 -rotate-45 -translate-y-2" : ""}`} />
                             </div>
 
                         </button>
@@ -144,15 +144,7 @@ const ProductGrid = () => {
             </div>
 
             <div
-                className="
-                my-10
-                grid
-                grid-cols-1
-                sm:grid-cols-2
-                md:grid-cols-3
-                lg:grid-cols-4
-                xl:grid-cols-5
-                gap-6"
+                className="my-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6"
             >
                 {filteredProducts.length === 0 ? (
                     <div className="col-span-full py-10 text-center text-gray-500">

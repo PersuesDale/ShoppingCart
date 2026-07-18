@@ -1,16 +1,15 @@
-type ProductProps = {
-    product: {
-        id: number;
-        title: string;
-        price: number;
-        rating: number;
-        thumbnail: string;
-        category: string;
+import { useCartStore } from "../../Store/cartStore";
+import type { Product } from "../../Schema/ProductSchema";
 
-    };
+type ProductProps = {
+    product: Product;
 };
 
+
+
 export default function ProductCard({ product }: ProductProps) {
+
+    const addToCart = useCartStore((state) => state.addToCart);
 
     return (
 
@@ -30,14 +29,14 @@ export default function ProductCard({ product }: ProductProps) {
                     {product.title}
                 </h2>
 
-                <p className="text-sm text-gray-500">
+                <p className="text-sm text-gray-500 capitalize">
                     {product.category}
                 </p>
 
                 <div className="flex items-center justify-between">
 
                     <span className="text-xl font-bold text-black">
-                        {product.price}
+                        ${product.price}
                     </span>
 
                     <span className="text-yellow-500 font-medium">
@@ -47,8 +46,8 @@ export default function ProductCard({ product }: ProductProps) {
                 </div>
 
                 <button
-                    className="mt-3 bg-black text-white py-2 rounded-lg 
-                            hover:bg-gray-800 transition-colors duration-200"
+                    onClick={() => addToCart(product)}
+                    className="mt-3 bg-black text-white py-2 rounded-lg hover:bg-gray-800 transition-colors duration-200"
                 >
                     Add to Cart
                 </button>

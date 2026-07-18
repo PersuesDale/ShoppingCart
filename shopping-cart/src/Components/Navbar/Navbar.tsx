@@ -1,12 +1,14 @@
-import icon from "../assets/Logo/NOZAMA.svg"
-import shoppingCart from "../assets/Icon/cart.svg"
+import icon from "../../assets/Logo/NOZAMA.svg"
+import shoppingCart from "../../assets/Icon/cart.svg"
 import { useNavigate, Link } from "react-router-dom"
-import { useState } from "react"
+import { useCartStore } from "../../Store/cartStore"
 
 export default function Navbar() {
     const navigate = useNavigate();
 
-    const [cartCount] = useState(3);
+    const cartCount = useCartStore((state) =>
+        state.cart.reduce((total, item) => total + item.quantity, 0)
+    )
 
     return (
         <nav className="w-full bg-black px-6 py-4 relative overflow-visible z-50">
@@ -46,11 +48,29 @@ export default function Navbar() {
                 <div
                     className={`absolute bg-black flex flex-row
                     items-center gap-6 py-6 transition-all duration-300 md:hidden z-50`}>
-                    
+                    {/* Cart Button */}
+                    <div onClick={() => navigate("/Cart")} className="relative onmouseover:cursor-pointer">
+                        <span className="text-lg">
+                            <img className="h-[30px] w-[30px]" src={shoppingCart} alt="Cart" />
+                        </span>
+
+                        <div className="w-full">
+
+                            {cartCount > 0 && (
+                                <span className="absolute -top-2 -right-3 bg-red-600 text-xs
+                            w-5 h-5 flex items-center justify-center rounded-full">
+                                    {cartCount}
+                                </span>
+                            )}
+                        </div>
+                    </div>
                 </div>
 
             </div>
+
         </nav>
+
     );
+
 }
 
