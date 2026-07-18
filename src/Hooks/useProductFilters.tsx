@@ -5,6 +5,7 @@ const useProductFilters = (products: Product[]) => {
     const [search, setSearch] = useState("");
     const [category, setCategory] = useState("all");
     const [priceFilter, setPriceFilter] = useState("all")
+    const [sortBy, setSortBy] = useState("default");
 
     let filteredProducts = products.filter((product) =>
         product.title.toLowerCase().includes(search.toLowerCase())
@@ -36,6 +37,24 @@ const useProductFilters = (products: Product[]) => {
         );
     }
 
+    if (sortBy === "priceLow") {
+        filteredProducts = [...filteredProducts].sort(
+            (a,b) => a.price - b.price
+        );
+    }
+
+    if (sortBy === "priceHigh") {
+        filteredProducts = [...filteredProducts].sort(
+            (a,b) => b.price - a.price
+        );
+    }
+    
+    if (sortBy === "ratingHigh") {
+        filteredProducts = [...filteredProducts].sort(
+            (a,b) => b.rating - a.rating
+        );
+    }
+
     return {
         search,
         setSearch,
@@ -44,6 +63,8 @@ const useProductFilters = (products: Product[]) => {
         priceFilter,
         setPriceFilter,
         filteredProducts,
+        sortBy,
+        setSortBy,
 
     }
 }

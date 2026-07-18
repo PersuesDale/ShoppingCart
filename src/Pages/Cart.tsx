@@ -33,19 +33,19 @@ export default function Cart() {
 
     const discount = subtotal > 100 ? subtotal * 0.10 : 0;
 
-    const total = subtotal + tax + discount;
+    const total = subtotal + tax - discount;
 
     const checkout = total >= 10;
 
     return (
-        <div className="min-h-screen bg-gray-100 p-6 ">
+        <div className="min-h-screen bg-gray-100 dark:bg-gray-950 dark:text-white p-6 ">
             <div className="max-w-5xl mx-auto">
                 <div className="flex flex-row mb-6 items-center justify-between w-full">
                     <h1 className="text-2xl font-semibold ">My Cart</h1>
 
-                    <button className={`text-xl flex flex-row justify-center items-center rounded rounded-lg p-2 pb-3 bg-red-700 hover:bg-red-600 text-white ${cart.length === 0 ? "opacity-0" : ""}`}
+                    <button className={`text-xl flex flex-row justify-center items-center rounded-lg p-2 pb-3 bg-red-700 hover:bg-red-600 text-white ${cart.length === 0 ? "opacity-0" : ""}`}
                         onClick={clearCart}>
-                        <img className="h-[20px] w-[20px]" src={trashIcon} alt="trash" />
+                        <img className="h-5 w-5" src={trashIcon} alt="trash" />
                         <span className="flex flex-col items-center">
                             Empty Cart
                         </span>
@@ -53,15 +53,15 @@ export default function Cart() {
                 </div>
 
                 {cart.length === 0 ? (
-                    <p className="text-gray-600">Your cart is empty.</p>
+                    <p className="text-gray-600 dark:text-gray-300">Your cart is empty.</p>
                 ) : (
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        {/* Cart Items */}
+
                         <div className="md:col-span-2 space-y-4">
                             {cart.map(item => (
                                 <div
                                     key={item.id}
-                                    className="bg-white p-4 rounded shadow flex gap-4"
+                                    className="bg-white dark:bg-gray-900 p-4 rounded shadow flex gap-4"
                                 >
                                     <img
                                         src={item.thumbnail}
@@ -69,13 +69,13 @@ export default function Cart() {
                                         className="w-24 h-24 object-cover rounded"
                                     />
 
-                                    <div className="flex-1">
+                                    <div className="flex-1 min-w-0">
                                         <h2 className="font-medium">{item.title}</h2>
-                                        <p className="text-gray-600">
+                                        <p className="text-gray-600 dark:text-gray-300">
                                             ${(item.price).toFixed(2)}
                                         </p>
 
-                                        <div className="flex items-center mt-2 gap-3">
+                                        <div className="flex items-center mt-2 gap-2 sm:gap-3">
                                             <button
                                                 onClick={() => decreaseQuantity(item.id)}
                                                 className="px-2 pb-1 border rounded disabled:opacity-40 disabled:cursor-not-allowed"
@@ -104,15 +104,14 @@ export default function Cart() {
                                         </div>
                                     </div>
 
-                                    <div className="font-medium">
+                                    <div className="font-medium shrink-0">
                                         ${(item.price * item.quantity).toFixed(2)}
                                     </div>
                                 </div>
                             ))}
                         </div>
 
-                        {/* Summary */}
-                        <div className="bg-white p-5 rounded shadow h-fit">
+                        <div className="bg-white dark:bg-gray-900 p-5 rounded shadow h-fit">
                             <h2 className="text-lg font-medium mb-4">
                                 Order Summary
                             </h2>
@@ -134,7 +133,7 @@ export default function Cart() {
                                 </span>
                             </div>
 
-                            {total > 100 ?
+                            {subtotal > 100 ?
                                 <>
                                     <div className="flex justify-between mb-2">
                                         <span>Discount (10%)</span>
@@ -166,8 +165,8 @@ export default function Cart() {
                             <button
                             onClick={() => navigate("/ShippingDetails")}
                                 disabled={!checkout}
-                                className="mt-5 w-full px-4 py-2 bg-black hover:bg-gray-700 cursor-pointer text-white rounded rounded-lg disabled:bg-gray-400 disabled:cursor-not-allowed">
-                                Proceed to Checkout
+                                className="mt-5 w-full px-4 py-2 bg-black hover:bg-gray-700 cursor-pointer text-white rounded-lg disabled:bg-gray-400 disabled:cursor-not-allowed">
+                                Proceed to Buy
                             </button>
 
                             {!checkout && (

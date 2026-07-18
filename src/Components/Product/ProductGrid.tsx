@@ -4,6 +4,7 @@ import { Products } from "../../api/products";
 import SearchBar from "../SearchBar";
 import useProductFilters from "../../Hooks/useProductFilters";
 import { useState } from "react";
+import ProductSkeleton from "../ProductSkeleton";
 
 const ProductGrid = () => {
 
@@ -25,13 +26,49 @@ const ProductGrid = () => {
         priceFilter,
         setPriceFilter,
         filteredProducts,
+        sortBy,
+        setSortBy,
     } = useProductFilters(data?.products ?? []);
 
-    if (isLoading) return <h1>Loading...</h1>;
+    if (isLoading) {
+        return (
+            <section className="w-[92%] py-10 mx-auto">
 
-    if (isError) return <h1>Something went wrong.</h1>;
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+                    {Array.from({ length: 10 }).map((_, index) => (
+                        <ProductSkeleton key={index} />
+                    ))}
+                </div>
 
-    if (!data || data.products.length === 0) return <h1>No products found.</h1>;
+            </section>
+        );
+    }
+
+    if (isError) {
+        return (
+            <div className="min-h-[60vh] flex items-center justify-center">
+                <div className="text-center">
+                    <h2 className="text-xl font-semibold mb-2">
+                        Unable to load products
+                    </h2>
+
+                    <p className="text-gray-600 dark:text-gray-300">
+                        Please check your connection and try again.
+                    </p>
+                </div>
+            </div>
+        );
+    }
+
+    if (!data || data.products.length === 0) {
+        return (
+            <div className="min-h-[60vh] flex items-center justify-center">
+                <p className="text-gray-600 dark:text-gray-300">
+                    No products found.
+                </p>
+            </div>
+        );
+    }
 
     const categories = [
         "all",
@@ -40,7 +77,7 @@ const ProductGrid = () => {
 
     return (
 
-        <section className="w-[92%] my-10 mx-auto">
+        <section className="w-[92%] py-10 mx-auto">
 
             <div className="flex justify-end">
 
@@ -56,21 +93,20 @@ const ProductGrid = () => {
                         <button onClick={() => setOpen(!open)}>
 
                             <div className="flex flex-col items-center ms-2">
-                                <span className={`h-0.5 w-6 bg-[#4a5565] transition-all mb-1 ${open ? "rotate-45 translate-y-2" : ""}`} />
-                                <span className={`h-[2px] w-4 bg-[#4a5565] transition-all mb-1 ${open ? "opacity-0" : ""}`} />
-                                <span className={`h-[2px] w-2 bg-[#4a5565] transition-all mb-1 ${open ? "w-6 mt-1 -rotate-45 -translate-y-2" : ""}`} />
+                                <span className={`h-0.5 w-6 bg-[#4a5565] dark:bg-white transition-all mb-1 ${open ? "rotate-45 translate-y-2" : ""}`} />
+                                <span className={`h-0.5 w-4 bg-[#4a5565] dark:bg-white transition-all mb-1 ${open ? "opacity-0" : ""}`} />
+                                <span className={`h-0.5 w-2 bg-[#4a5565] dark:bg-white transition-all mb-1 ${open ? "w-6 mt-1 -rotate-45 -translate-y-2" : ""}`} />
                             </div>
 
                         </button>
 
                         {open && (
-                            <div className="absolute right-0 mt-4 w-72 rounded-lg border bg-white shadow-lg p-4 z-50">
+                            <div className="absolute right-0 mt-4 w-72 rounded-lg border bg-white dark:bg-gray-900 dark:text-white shadow-lg p-4 z-50">
 
                                 <h3 className="font-semibold mb-4">
                                     Filters
                                 </h3>
 
-                                {/* category filteering */}
                                 <div className="mb-4">
                                     <label className="block text-sm mb-2">
                                         Category
@@ -79,7 +115,7 @@ const ProductGrid = () => {
                                     <select
                                         value={category}
                                         onChange={(e) => setCategory(e.target.value)}
-                                        className="w-full border rounded-md p-2"
+                                        className="w-full border bg-white text-black dark:bg-gray-900 dark:text-white rounded-md p-2"
                                     >
                                         {categories.map((cat) => (
                                             <option
@@ -92,7 +128,6 @@ const ProductGrid = () => {
                                     </select>
                                 </div>
 
-                                {/* price filtering */}
 
                                 <div className="mb-4">
                                     <label className="block text-sm mb-2">
@@ -102,7 +137,7 @@ const ProductGrid = () => {
                                     <select
                                         value={priceFilter}
                                         onChange={(e) => setPriceFilter(e.target.value)}
-                                        className="w-full border rounded-md p-2"
+                                        className="w-full border bg-white text-black dark:bg-gray-900 dark:text-white rounded-md p-2"
                                     >
                                         <option value="all">
                                             All Prices
@@ -121,15 +156,49 @@ const ProductGrid = () => {
                                         </option>
                                     </select>
                                 </div>
-                                {/* clear filters */}
+
+                                <div className="mb-4">
+
+                                    <label className="block text-sm mb-2">
+                                        Sort By
+                                    </label>
+
+                                    <select
+                                        value={sortBy}
+                                        onChange={(e) => setSortBy(e.target.value)}
+                                        className="w-full border bg-white text-black dark:bg-gray-900 dark:text-white rounded-md p-2"
+                                    >
+
+                                        <option value="default">
+                                            Default
+                                        </option>
+
+                                        <option value="priceLow">
+                                            Price: Low to High
+                                        </option>
+
+                                        <option value="priceHigh">
+                                            Price: High to Low
+                                        </option>
+
+                                        <option value="ratingHigh">
+                                            Rating: High to Low
+                                        </option>
+
+                                    </select>
+
+                                </div>
+
                                 <button
                                     onClick={() => {
                                         setSearch("");
                                         setCategory("all");
                                         setPriceFilter("all");
-                                        setOpen(false)
+                                        setSortBy("default");
+                                        setOpen(false);
+
                                     }}
-                                    className="w-full rounded-md bg-gray-800 text-white py-2 hover:bg-gray-700"
+                                    className="w-full rounded-md bg-black text-white py-2 hover:bg-gray-700"
                                 >
                                     Clear Filters
                                 </button>
@@ -147,8 +216,8 @@ const ProductGrid = () => {
                 className="my-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6"
             >
                 {filteredProducts.length === 0 ? (
-                    <div className="col-span-full py-10 text-center text-gray-500">
-                        No products match your filters.
+                    <div className="col-span-full py-10 text-center text-gray-500 dark:text-gray-300">
+                        No products match your search or filters.
                     </div>
                 ) : (
                     filteredProducts.map((product) => (
