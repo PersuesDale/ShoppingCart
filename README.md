@@ -2,6 +2,10 @@
 
 A responsive shopping cart build with React and TypeScript. The application fetchs product data from a public API and allows users to search, filter, sort, manage quantities and complete a checkout flow.
 
+## Live Demo
+
+[View Live Application] (https://shopping-cart-d.vercel.app/)
+
 ## Technologies Used
 
 - React 19
